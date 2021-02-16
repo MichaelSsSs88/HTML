@@ -1,0 +1,88 @@
+body {
+    margin-right: 200px;
+    margin-left: 200px;
+    scroll-behavior: auto;
+}
+
+p.imagen_centrada {
+    text-align: center;
+}
+
+h1.titulo_inicio {
+    color: snow;
+    text-align: center;
+    font: bold 50px Arial;
+}
+
+#buscador {
+    background-color: #2e3842;
+    margin: 20px;
+}
+
+#buscador_registro {
+    background-color: #2e3842;
+    margin-right: 300px;
+    margin-left: 300px;
+}
+
+#login_guardar {
+    background-color: #2e3842;
+    margin-right: 300px;
+    margin-left: 300px;
+}
+
+#resultados.h3 {
+    color: snow;
+    font: bold 50px Arial;
+}
+
+#ctn-icon-search {
+    padding-left: 20px;
+    color: snow;
+}
+
+#ctn-bars-search {
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    text-align: inherit;
+    text-size-adjust: inherit;
+}
+
+#boton_ingresar,
+#boton_guardar,
+#boton_buscar {
+    padding-right: 20px;
+    padding-bottom: 100px;
+    color: black;
+    position: relative;
+}
+
+#validate {
+    text-align: right;
+}
+
+#resultados {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+}
+
+
+/*#tabla {
+    width: auto;
+    height: auto;
+}*/
+
+table {
+    width: 100%;
+    font: normal 13px Arial;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+table th {
+    font: bold 15px Arial;
+    background-color: lightblue;
+}
