@@ -10,7 +10,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="../css/index_aux.css" media="screen">
     <link rel="stylesheet" href="../css/main.css" />
-    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <!--<script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>-->
 
 </head>
 
@@ -21,20 +21,20 @@
         <header id="header">
             <h1><a href="index.html">TicoRides.com</a></h1>
             <nav id="nav">
-                <ul>
+                <ul id="menu_login">
                     <li class="special">
                         <a href="../index.html" class="menuToggle"><span>Home</span></a>
 
                     </li>
 
-                    <li class="special">
+                    <li>
                         <a href="#menu" class="menuToggle"><span>Menu</span></a>
-                        <div id="menu">
-                            <ul>
-                                <ol><a href="register.html">Registrarse</a></ol>
-                                <ol><a href="index.html">Ingresar</a></ol>
-                            </ul>
-                        </div>
+                        <!--<div id="menu">-->
+                        <ul>
+                            <li><a href="register.html">Registrarse</a></li>
+                            <li><a href="index.html">Ingresar</a></li>
+                        </ul>
+                        <!--</div>-->
                     </li>
                 </ul>
             </nav>
@@ -55,17 +55,18 @@
             <section id="login_guardar">
 
                 <div id="ctn-bars-search">
-                    <label for="">Usuario: </label>
-                    <input type="text" id="find_place_out" placeholder="Escriba el nombre de usuario">
-                    <label for=""> Contraseña: </label>
-                    <input type="text" id="find_place_arrive" placeholder="Escriba la contraseña">
-
-
+                    <form name="formulario" id="form_login" action="./dashboard.html">
+                        <label for="">Usuario: </label>
+                        <input type="text" id="username" placeholder="Escriba el nombre de usuario">
+                        <label for=""> Contraseña: </label>
+                        <input type="text" id="password" placeholder="Escriba la contraseña">
+                        <div id="div_boton_buscar">
+                            <input type='submit' id='validate' value="Ingresar"></input>
+                        </div>
+                    </form>
                 </div>
 
-                <div id="div_boton_ingresar" align="right">
-                    <a id="boton_ingresar" href=""><button> Ingresar </button></a>
-                </div>
+
 
             </section>
 
@@ -78,15 +79,16 @@
 
 
     </div>
-    <script src="../js/cargar_viajes.js"></script>
+    <script src="../js/registrar.js"></script>
+    <!--<script src="../js/cargar_viajes.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/jquery.scrollex.min.js"></script>
     <script src="../js/jquery.scrolly.min.js"></script>
     <script src="../js/skel.min.js"></script>
     <script src="../js/util.js"></script>
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-    <script src="../js/main.js"></script>
-    <script src="../js/invoice.js"></script>
+    <!--<script src="../js/main.js"></script>
+    <script src="../js/invoice.js"></script>-->
 
 </body>
 

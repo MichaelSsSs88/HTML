@@ -38,12 +38,26 @@ function llenarTabla() {
         fila.appendChild(celdasalida);
         celdallegada.appendChild(document.createTextNode(readarrive[i]))
         fila.appendChild(celdallegada);
-        celdavista.appendChild(document.createTextNode('sdsdds'));
+        var button = document.createElement("button");
+        button.onclick = myFunction;
+        //button.addEventListener("click", myFunction, false);
+        button.innerText = "Editar";
+        button.setAttribute
+        celdavista.appendChild(button);
+        celdavista.appendChild(document.createTextNode("  "))
+        var button_1 = document.createElement("button");
+        button_1.innerText = "Eliminar";
+        celdavista.appendChild(button_1);
+        //celdavista.appendChild(document.createTextNode("Boton"));
         fila.appendChild(celdavista);
         tbody.appendChild(fila);
     }
+}
 
+function myFunction() {
 
+    document.getElementById('tabsilver').checked = true;
+    document.getElementById('tabgold_1').checked = true;
 
 }
 llenarTabla();

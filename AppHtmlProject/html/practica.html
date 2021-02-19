@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <title>Pestañas maquetadas con listas y CSS</title>
+    <style type="text/css">
+        body {
+            background-color: blue;
+            color: black;
+        }
+        
+        #pestanas {
+            float: left;
+            width: 100%;
+            line-height: normal;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        #pestanas ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        #pestanas li {
+            float: left;
+            margin: 0 0 0 3px;
+            padding: 0;
+            background: url("p-der.gif") no-repeat right top;
+        }
+        
+        #pestanas a {
+            display: block;
+            background: url("p-izq.gif") no-repeat left top;
+            padding: 3px 10px 3px 10px;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        #pestanas .activa a {
+            background-image: url("p-izq-activo.gif");
+        }
+        
+        #pestanas .activa {
+            background-image: url("p-der-activo.gif");
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="pestanas">
+        <ul>
+            <li><a href="#">DesarrolloWeb.com</a></li>
+            <li class="activa"><a href="#">CriarWeb.com</a></li>
+            <li><a href="#">Comunidad</a></li>
+            <li><a href="#">Otro enlace más largo</a></li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
