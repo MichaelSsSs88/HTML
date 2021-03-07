@@ -32,8 +32,6 @@ h1.titulo_inicio {
 
 #login_guardar {
     background-color: #2e3842;
-    /* margin-right: 300px;
-    margin-left: 300px;*/
     width: 50%;
     align-items: center;
     display: block;
@@ -67,7 +65,6 @@ h1.titulo_inicio {
     padding-bottom: 20px;
     display: block;
     color: black;
-    /* position: relative;*/
 }
 
 #div_boton_buscar {
@@ -78,13 +75,9 @@ h1.titulo_inicio {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 40px;
+    background-color: #2e3842;
+    margin: 20px;
 }
-
-
-/*#tabla {
-    width: auto;
-    height: auto;
-}*/
 
 table {
     width: 100%;
