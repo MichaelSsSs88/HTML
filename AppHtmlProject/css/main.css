@@ -1,3 +1,204 @@
+body {
+    margin-right: 200px;
+    margin-left: 200px;
+    scroll-behavior: auto;
+}
+
+p.imagen_centrada {
+    text-align: center;
+}
+
+h1.titulo_inicio {
+    color: snow;
+    text-align: center;
+    font: bold 50px Arial;
+}
+
+#buscador {
+    background-color: #2e3842;
+    margin: 20px;
+}
+
+#buscador_registro {
+    background-color: #2e3842;
+    /*margin-right: 300px;
+    margin-left: 300px;*/
+    width: 50%;
+    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#login_guardar {
+    background-color: #2e3842;
+    width: 50%;
+    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#resultados.h3 {
+    color: snow;
+    font: bold 50px Arial;
+}
+
+#ctn-icon-search {
+    padding-left: 20px;
+    color: snow;
+}
+
+#ctn-bars-search {
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    text-align: inherit;
+    text-size-adjust: inherit;
+}
+
+#boton_ingresar,
+#boton_guardar,
+#boton_buscar {
+    padding-right: 20px;
+    padding-bottom: 20px;
+    display: block;
+    color: black;
+}
+
+#div_boton_buscar {
+    text-align: right;
+}
+
+#resultados {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+    background-color: #2e3842;
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    font: normal 13px Arial;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+table th {
+    font: bold 15px Arial;
+    background-color: lightblue;
+}
+
+li,
+ul {
+    list-style: none;
+}
+
+#menu_login li>a {
+    background-color: #2e3842;
+    color: white;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    min-width: 100px;
+}
+
+#menu_login li>a:hover {
+    color: #000;
+    background-color: #eaeaea;
+}
+
+#menu_login>li {
+    float: left;
+    text-align: center
+}
+
+#menu_login>li>ul {
+    display: none;
+}
+
+#menu_login>li:hover>ul {
+    display: block;
+}
+
+.mytabs {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    margin: 50px auto;
+    padding: 25px;
+}
+
+.mytabs input[type="radio"] {
+    display: none;
+}
+
+.mytabs label {
+    padding: 20px;
+    background: #2e3842;
+    font-weight: bold;
+}
+
+.mytabs .tab {
+    width: 100%;
+    padding: 20px;
+    background: #2e3842;
+    order: 1;
+    display: none;
+}
+
+.mytabs .tab h2 {
+    font-size: 3em;
+}
+
+.mytabs input[type='radio']:checked+label+.tab {
+    display: block;
+}
+
+.mytabs input[type="radio"]:checked+label {
+    background: rgb(144, 235, 185);
+}
+
+.mytabs_1 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 50px auto;
+    padding: 25px;
+}
+
+.mytabs_1 input[type="radio"] {
+    display: none;
+}
+
+.mytabs_1 label {
+    padding: 25px;
+    background: #2e3842;
+    font-weight: bold;
+}
+
+.mytabs_1 .tab_1 {
+    width: 100%;
+    padding: 20px;
+    background: #2e3842;
+    order: 1;
+    display: none;
+}
+
+.mytabs_1 .tab_1 h2 {
+    font-size: 3em;
+}
+
+.mytabs_1 input[type='radio']:checked+label+.tab_1 {
+    display: inline-block;
+}
+
+.mytabs_1 input[type="radio"]:checked+label {
+    background: rgb(144, 235, 185);
+}
+
 html,
 body,
 div,
