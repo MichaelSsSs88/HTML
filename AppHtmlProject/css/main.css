@@ -37,6 +37,7 @@ h1.titulo_inicio {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 20px;
 }
 
 #resultados.h3 {
@@ -410,6 +411,7 @@ a {
     border-bottom: dotted 1px;
     color: inherit;
     text-decoration: none;
+    -o-transition: color 0.2s ease, border-bottom-color 0.2s ease;
 }
 
 a:hover {

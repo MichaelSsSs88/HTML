@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(e) {
-
+    alert('saass');
     document.formulario.addEventListener("submit", validarFormulario);
+
     window.formulario.username.addEventListener("input", function() {
         document.getElementById("username").innerHTML = "";
         document.getElementById("password").innerHTML = "";
@@ -9,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
     var elBotones = document.querySelectorAll("button");
 
-    console.log(elBotones);
 
     /*Asignamos  función para escuchar*/
     for (var i = 0; i < elBotones.length; i++) {
@@ -18,9 +18,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
     }
 
     var links = document.querySelectorAll("a");
-
-
-
 });
 
 function validarFormulario(e) {
@@ -89,6 +86,11 @@ function validarFormulario(e) {
                 alert("El usuario no existe");
                 e.preventDefault();
             } else if (readuser.Password == password) {
+                e.preventDefault();
+                location.href = './dashboard.html';
+                sessionStorage.setItem('username', username);
+                document.getElementById('username').value = '';
+
 
             } else {
                 alert('Password incorrecto');
@@ -101,6 +103,9 @@ function validarFormulario(e) {
             e.preventDefault();
         }
 
+    } else {
+        alert("Favor ingresar usuario y password");
+        e.preventDefault();
     }
 
 }

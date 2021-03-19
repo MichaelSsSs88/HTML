@@ -10,12 +10,106 @@
     <title>TicoRides</title>
 
     <link rel="stylesheet" href="../css/main.css" media="screen" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" media="screen">
+
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="../js/localizacion.js"></script>
+    <script>
+        function separateQueryString() {
+
+            document.getElementById('user').innerHTML = sessionStorage.getItem('username');
+            //sessionStorage.clear();
+
+        }
+        window.onload = separateQueryString;
+    </script>
+    <style type="text/css">
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        let map;
+
+        function initMap() {
+            const ubication = new localizacion(() => {
+                const options = {
+                    center: {
+                        lat: ubication.latitude,
+
+                        lng: ubication.longitude
+                    },
+                    zoom: 15,
+                }
+
+                map = new google.maps.Map(document.getElementById("map"), options);
+
+                marcador = new google.maps.Marker({
+                    map: map,
+                    draggable: true,
+                    position: new google.maps.LatLng(ubication.latitude, ubication.longitude)
+                });
+
+                marcador.addListener('dragend', function(event) {
+
+                    document.getElementById("add_ip_1").value = this.getPosition().lat();
+                    document.getElementById("add_ip_2").value = this.getPosition().lng();
+                    // getAddress(ubication.latitude, ubication.longitude);
+
+                });
+
+
+            });
+
+
+
+
+        }
+
+        function getAddress(latitude, longitude) {
+            return new Promise(function(resolve, reject) {
+                var request = new XMLHttpRequest();
+
+                var method = 'GET';
+                var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true';
+                var async = true;
+
+                request.open(method, url, async);
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4) {
+                        if (request.status == 200) {
+                            var data = JSON.parse(request.responseText);
+                            var address = data.results[0];
+                            console.log(data);
+                            resolve(address);
+                        } else {
+                            reject(request.status);
+                        }
+                    }
+                };
+                request.send();
+            });
+        };
+    </script>
+
 
 </head>
 
-<body class="teal- lighten-2">
-
+<body class="teal- lighten-2" style="color: white;">
     <div id="page-wrapper">
 
         <header id="header">
@@ -23,7 +117,9 @@
             <nav id="nav">
                 <ul id="menu_login">
                     <li class="special">
-                        <span>Welcome <p id="user_name" style="display:inline"></p> <i class="far fa-user"></i></span>
+                        <span style="display: inline;">Welcome <p id='user'
+                                style="display:inline; color: white; padding-top: 20px;"> </p> <i
+                                class="far fa-user"></i></span>
 
                     </li>
 
@@ -57,11 +153,12 @@
 
                         <h3 class="subtitulo_busacado" style="color:white;">Esta es su lista actual de viajes.</h3>
 
-                        <table id="tabla_viajes" class="default" style="border:1;">
+                        <table id="tabla_viajes" class="default" style="border:1px;">
 
 
                             <tbody>
                                 <tr>
+                                    <th>Viaje</th>
 
                                     <th>Usuario</th>
 
@@ -73,7 +170,7 @@
 
 
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <td>Martin</td>
                                     <td>Fortuna</td>
                                     <td>Guatuso</td>
@@ -96,7 +193,7 @@
                                     <td><button>Editar</button>
                                         <button>Eliminar</button>
                                     </td>
-                                </tr>
+                                </tr>-->
 
                             </tbody>
                         </table>
@@ -114,105 +211,106 @@
                         <div class="tab_1">
                             <h3>Dashboard</h3>
                             <form id="editar" class="form-inline" role="form" action="login.html">
-                                <label for="name" style="margin: 0px; padding-left: 0;">Viaje </label>
-                                <input type="short-text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="name" placeholder="Escriba el viaje" readonly>
+                                <label for="nombre_viaje" style="margin: 0px; padding-left: 0;">Viaje </label>
+                                <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="nombre_viaje" name="nombre_viaje" placeholder="Escriba el viaje" readonly>
 
                                 <section style="width: 100%;padding-left: 0; padding-top: 25px; padding-right: 0;margin-right: 0px; margin-bottom: 5px;">
-                                </section>
-                                <div style="width: 100%;padding-left: 0; padding-right: 0; text-align: left; display: inline;margin-right: 0px;">
 
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
-                                        <label for="ip_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            Salida: </label>
+                                    <div style="width: 100%;padding-left: 0; padding-right: 0; text-align: left; display: inline;margin-right: 0px;">
 
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
+                                            <label for="ip_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                Salida: </label>
+
+                                            <br>
+                                            <input id="ip_1" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" readonly>
+                                            <button style="width: 23% ;text-align: center;"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px; margin-bottom: 25px;">
+                                            <label for="ip_2" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px;  padding-right: 0; padding-bottom: 25px;  display: inline;">
+                                                Llegada: </label>
+
+                                            <BR>
+                                            <input id="ip_2" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%; padding-top: 5px; color: white; display: inline;" placeholder="Escriba el lugar de llegada" readonly>
+                                            <button style="width: 23% ;text-align: center;"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+
+                                        <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
+                                            Descripcion: </label>
                                         <br>
-                                        <input id="ip_1" type="short-text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" readonly>
-                                        <button style="width: 23% ;text-align: center;"><i class="fas fa-search"
-                                                id="icono-buscador"></i></button>
+                                        <textarea name="comentarios_x" rows="5" cols="60" style="margin-top: 10px; resize:none; margin-top: 20px;" readonly></textarea> <br>
+                                        <hr>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
+                                            <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 0px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Cuando? </label>
+                                            <br><br>
+                                            <label for="out" style="margin-left: 25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Salida? </label>
+                                            <br>
+                                            <input id="out" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" readonly>
+                                            <br>
+                                            <label for="arrive" style="margin-left:25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Llegada? </label>
+                                            <br>
+                                            <input id="arrive" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" readonly>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+
+
+                                        </div>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block ; margin-right: 0px;">
+                                            <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 10px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Dias? </label>
+                                            <br><br><br>
+                                            <input type="checkbox" name="option" id="check1" style="display: inline;" disabled> &nbsp;
+                                            <label for="check1" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Lunes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="option" id="check2" style="display: inline;" disabled> &nbsp;
+                                            <label for="check2" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Martes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="option" id="check3" style="display: inline;" disabled> &nbsp;
+                                            <label for="check3" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Miercoles</label><br>
+                                            <br>
+                                            <input type="checkbox" name="option" id="check4" style="display: inline;" disabled> &nbsp;
+                                            <label for="check4" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Jueves</label><br>
+                                            <br>
+                                            <input type="checkbox" name="option" id="check5" style="display: inline;" disabled> &nbsp;
+                                            <label for="check5" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Viernes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="option" id="check6" style="display: inline;" disabled> &nbsp;
+                                            <label for="check6" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                S&aacute;bado</label><br>
+                                            <br>
+                                            <input type="checkbox" name="option" id="check7" style="display: inline;" disabled> &nbsp;
+                                            <label for="check7" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Domingo</label><br>
+                                            <br>
+                                        </div>
                                     </div>
 
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px; margin-bottom: 25px;">
-                                        <label for="ip_2" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px;  padding-right: 0; padding-bottom: 25px;  display: inline;">
-                                            Llegada: </label>
 
-                                        <BR>
-                                        <input id="ip_2" type="short-text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%; padding-top: 5px; color: white; display: inline;" placeholder="Escriba el lugar de llegada" readonly>
-                                        <button style="width: 23% ;text-align: center;"><i class="fas fa-search"
-                                                id="icono-buscador"></i></button>
-                                    </div>
-
-                                    <label for="description_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
-                                        Descripcion: </label>
-                                    <br>
-                                    <textarea name="comentarios" rows="5" cols="60" style="margin-top: 10px;" readonly></textarea> <br>
-                                    <hr>
-
-                                    <div style="margin: 0px; width: 49%; display:inline-block; border-block-start: 0px; margin-right: 0px;">
-                                        <label for="" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Cuando? </label>
-                                        <br><br>
-                                        <label for="out" style="margin-left: 25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Salida? </label>
-                                        <br>
-                                        <input id="out" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" readonly>
-                                        <br>
-                                        <label for="arrive" style="margin-left:25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Llegada? </label>
-                                        <br>
-                                        <input id="arrive" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" readonly>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-
-                                    </div>
-
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
-                                        <label for="" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Dias? </label>
-                                        <br><br><br>
-                                        <input type="checkbox" name="option" id="check1" style="display: inline;" readonly="readonly" disabled> &nbsp;
-                                        <label for="check1" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Lunes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="option" id="check2" style="display: inline;" readonly="readonly" disabled> &nbsp;
-                                        <label for="check2" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Martes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="option" id="check3" style="display: inline;" readonly="readonly" disabled> &nbsp;
-                                        <label for="check3" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Miercoles</label><br>
-                                        <br>
-                                        <input type="checkbox" name="option" id="check4" style="display: inline;" readonly disabled> &nbsp;
-                                        <label for="check4" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Jueves</label><br>
-                                        <br>
-                                        <input type="checkbox" name="option" id="check5" style="display: inline;" readonly disabled> &nbsp;
-                                        <label for="check5" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Viernes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="option" id="check6" style="display: inline;" readonly disabled> &nbsp;
-                                        <label for="check6" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            S&aacute;bado</label><br>
-                                        <br>
-                                        <input type="checkbox" name="option" id="check7" style="display: inline;" readonly disabled> &nbsp;
-                                        <label for="check7" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Domingo</label><br>
-                                        <br>
-                                    </div>
-                                </div>
-
-
-                                <p><input type="reset">
-                                    <input type="submit" style="margin-left: 60%; margin-right: 0%;">
-                                </p>
+                                    <p><input type="reset">
+                                        <input type="submit" style="margin-left: 60%; margin-right: 0%;">
+                                    </p>
                                 </section>
 
                             </form>
@@ -224,106 +322,105 @@
                             <h3>
                                 <a href="#">Dashboard</a>> <a href='' id="link_rides">Rides</a>>Add
                             </h3>
-                            <form id="add_editar" class="form-inline" name="formulario" role="form" action="login.html">
+                            <form id="formulario_agregar" name="formulario_agregar" class="form-inline" action="#">
                                 <label for="add_name" style="margin: 0px; padding-left: 0;">Viaje </label>
-                                <input type="short-text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="edit_name" placeholder="Escriba el viaje" required>
+                                <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="add_name" placeholder="Escriba el viaje" required>
 
                                 <section style="width: 100%;padding-left: 0; padding-top: 25px; padding-right: 0;margin-right: 0px; margin-bottom: 5px;">
-                                </section>
-                                <div style="width: 100%;padding-left: 0; padding-right: 0; text-align: left; display: inline;margin-right: 0px;">
 
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
-                                        <label for="add_ip_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            Salida: </label>
+                                    <div style="width: 100%;padding-left: 0; padding-right: 0; text-align: left; display: inline;margin-right: 0px;">
 
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
+                                            <label for="add_ip_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                Salida: </label>
+
+                                            <br>
+                                            <input id="add_ip_1" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
+                                            <button type="button" style="width: 23% ;text-align: center;" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                                    class="fas fa-search" id="icono-buscador"></i></button>
+                                        </div>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px; margin-bottom: 25px;">
+                                            <label for="add_ip_2" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px;  padding-right: 0; padding-bottom: 25px;  display: inline;">
+                                                Llegada: </label>
+
+                                            <BR>
+                                            <input id="add_ip_2" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%; padding-top: 5px; color: white; display: inline;" placeholder="Escriba el lugar de llegada" required>
+                                            <button type="button" style="width: 23% ;text-align: center;" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-search"></i></button>
+                                        </div>
+
+                                        <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
+                                            Descripcion: </label>
                                         <br>
-                                        <input id="add_ip_1" type="short-text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
-                                        <button style="width: 23% ;text-align: center;"><i class="fas fa-search"
-                                                id="icono-buscador"></i></button>
+                                        <textarea id="add_comentarios" name="add_comentarios" rows="5" cols="60" style="margin-top: 10px;"></textarea> <br>
+                                        <hr>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
+                                            <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Cuando? </label>
+                                            <br><br>
+                                            <label for="add_out" style="margin-left: 25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Salida? </label>
+                                            <br>
+                                            <input id="add_out" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" required>
+                                            <br>
+                                            <label for="add_arrive" style="margin-left:25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Llegada? </label>
+                                            <br>
+                                            <input id="add_arrive" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" required>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+
+                                        </div>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
+                                            <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Dias? </label>
+                                            <br><br><br>
+                                            <input type="checkbox" name="add_option" id="add_check1" style="display: inline;" /> &nbsp;
+                                            <label for="add_check1" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Lunes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="add_option" id="add_check2" style="display: inline;" /> &nbsp;
+                                            <label for="add_check2" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Martes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="add_option" id="add_check3" style="display: inline;" /> &nbsp;
+                                            <label for="add_check3" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Miercoles</label><br>
+                                            <br>
+                                            <input type="checkbox" name="add_option" id="add_check4" style="display: inline;" /> &nbsp;
+                                            <label for="add_check4" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Jueves</label><br>
+                                            <br>
+                                            <input type="checkbox" name="add_option" id="add_check5" style="display: inline;" /> &nbsp;
+                                            <label for="add_check5" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Viernes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="add_option" id="add_check6" style="display: inline;" /> &nbsp;
+                                            <label for="add_check6" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                S&aacute;bado</label><br>
+                                            <br>
+                                            <input type="checkbox" name="add_option" id="add_check7" style="display: inline;" /> &nbsp;
+                                            <label for="add_check7" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Domingo</label><br>
+                                            <br>
+                                        </div>
                                     </div>
 
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px; margin-bottom: 25px;">
-                                        <label for="edit_ip_2" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px;  padding-right: 0; padding-bottom: 25px;  display: inline;">
-                                            Llegada: </label>
 
-                                        <BR>
-                                        <input id="add_ip_2" type="short-text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%; padding-top: 5px; color: white; display: inline;" placeholder="Escriba el lugar de llegada" required>
-                                        <button style="width: 23% ;text-align: center;"><i class="fas fa-search"
-                                                id="icono-buscador"></i></button>
-                                    </div>
-
-                                    <label for="add_description_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
-                                        Descripcion: </label>
-                                    <br>
-                                    <textarea name="add_comentarios" rows="5" cols="60" style="margin-top: 10px;"></textarea> <br>
-                                    <hr>
-
-                                    <div style="margin: 0px; width: 49%; display:inline-block; border-block-start: 0px; margin-right: 0px;">
-                                        <label for="" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Cuando? </label>
-                                        <br><br>
-                                        <label for="add_out" style="margin-left: 25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Salida? </label>
-                                        <br>
-                                        <input id="add_out" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
-                                        <br>
-                                        <label for="add_arrive" style="margin-left:25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Llegada? </label>
-                                        <br>
-                                        <input id="add_arrive" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-
-                                    </div>
-
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
-                                        <label for="" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Dias? </label>
-                                        <br><br><br>
-                                        <input type="checkbox" name="add_option" id="add_check1" style="display: inline;" /> &nbsp;
-                                        <label for="add_check1" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Lunes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="add_option" id="add_check2" style="display: inline;" /> &nbsp;
-                                        <label for="add_check2" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Martes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="add_option" id="add_check3" style="display: inline;" /> &nbsp;
-                                        <label for="add_check3" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Miercoles</label><br>
-                                        <br>
-                                        <input type="checkbox" name="add_option" id="add_check4" style="display: inline;" /> &nbsp;
-                                        <label for="add_check4" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Jueves</label><br>
-                                        <br>
-                                        <input type="checkbox" name="add_option" id="add_check5" style="display: inline;" /> &nbsp;
-                                        <label for="add_check5" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Viernes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="add_option" id="add_check6" style="display: inline;" /> &nbsp;
-                                        <label for="add_check6" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            S&aacute;bado</label><br>
-                                        <br>
-                                        <input type="checkbox" name="add_option" id="add_check7" style="display: inline;" /> &nbsp;
-                                        <label for="add_check7" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Domingo</label><br>
-                                        <br>
-                                    </div>
-                                </div>
-
-
-                                <p><input type="reset">
-                                    <input type="submit" id='validate' style="margin-left: 60%; margin-right: 0%;">
-                                </p>
+                                    <p><input type="reset">
+                                        <input type="submit" id='validate' style="margin-left: 60%; margin-right: 0%;" value="Guardar">
+                                    </p>
                                 </section>
 
                             </form>
@@ -334,108 +431,108 @@
                         <label for="tabgold_1">Editar</label>
                         <div class="tab_1">
                             <h3>
-                                <a href="#">Dashboard</a>> <a href='' id="link_rides">Rides</a>>Edit
+                                <a href="#">Dashboard</a>> <a href='' id="link_rides_2">Rides</a>>Edit
                             </h3>
                             <form id="edit_editar" class="form-inline" name="formulario" role="form" action="login.html">
-                                <label for="edit_name" style="margin: 0px; padding-left: 0;">Viaje </label>
-                                <input type="short-text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="edit_name" placeholder="Escriba el viaje" required>
+                                <label style="margin: 0px; padding-left: 0;">Viaje </label>
+                                <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="editar_nombre_viaje" name="editar_nombre_viaje" placeholder="Escriba el viaje" required>
 
                                 <section style="width: 100%;padding-left: 0; padding-top: 25px; padding-right: 0;margin-right: 0px; margin-bottom: 5px;">
-                                </section>
-                                <div style="width: 100%;padding-left: 0; padding-right: 0; text-align: left; display: inline;margin-right: 0px;">
 
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
-                                        <label for="edit_ip_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            Salida: </label>
+                                    <div style="width: 100%;padding-left: 0; padding-right: 0; text-align: left; display: inline;margin-right: 0px;">
 
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
+                                            <label for="edit_place_out" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                Salida: </label>
+
+                                            <br>
+                                            <input id="edit_place_out" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
+                                            <button style="width: 23% ;text-align: center;"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px; margin-bottom: 25px;">
+                                            <label for="edit_place_arrive" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px;  padding-right: 0; padding-bottom: 25px;  display: inline;">
+                                                Llegada: </label>
+
+                                            <BR>
+                                            <input id="edit_place_arrive" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%; padding-top: 5px; color: white; display: inline;" placeholder="Escriba el lugar de llegada" required>
+                                            <button style="width: 23% ;text-align: center;"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+
+                                        <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
+                                            Descripcion: </label>
                                         <br>
-                                        <input id="edit_ip_1" type="short-text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
-                                        <button style="width: 23% ;text-align: center;"><i class="fas fa-search"
-                                                id="icono-buscador"></i></button>
+                                        <textarea id="edit_description" name="edit_description" rows="5" cols="60" style="margin-top: 10px;"></textarea> <br>
+                                        <hr>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
+                                            <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Cuando? </label>
+                                            <br><br>
+                                            <label for="edit_hour_out" style="margin-left: 25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Salida? </label>
+                                            <br>
+                                            <input id="edit_hour_out" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" required>
+                                            <br>
+                                            <label for="edit_hour_arrive" style="margin-left:25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Llegada? </label>
+                                            <br>
+                                            <input id="edit_hour_arrive" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" required>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+
+                                        </div>
+
+                                        <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
+                                            <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
+                                                ¿Dias? </label>
+                                            <br><br><br>
+                                            <input type="checkbox" name="edit_option" id="edit_check1" style="display: inline;" /> &nbsp;
+                                            <label for="edit_check1" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Lunes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="edit_option" id="edit_check2" style="display: inline;" /> &nbsp;
+                                            <label for="edit_check2" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Martes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="edit_option" id="edit_check3" style="display: inline;" /> &nbsp;
+                                            <label for="edit_check3" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Miercoles</label><br>
+                                            <br>
+                                            <input type="checkbox" name="edit_option" id="edit_check4" style="display: inline;" /> &nbsp;
+                                            <label for="edit_check4" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Jueves</label><br>
+                                            <br>
+                                            <input type="checkbox" name="edit_option" id="edit_check5" style="display: inline;" /> &nbsp;
+                                            <label for="edit_check5" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Viernes</label><br>
+                                            <br>
+                                            <input type="checkbox" name="edit_option" id="edit_check6" style="display: inline;" /> &nbsp;
+                                            <label for="edit_check6" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                S&aacute;bado</label><br>
+                                            <br>
+                                            <input type="checkbox" name="edit_option" id="edit_check7" style="display: inline;" /> &nbsp;
+                                            <label for="edit_check7" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
+                                                Domingo</label><br>
+                                            <br>
+                                        </div>
                                     </div>
 
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px; margin-bottom: 25px;">
-                                        <label for="edit_ip_2" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px;  padding-right: 0; padding-bottom: 25px;  display: inline;">
-                                            Llegada: </label>
 
-                                        <BR>
-                                        <input id="edit_ip_2" type="short-text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%; padding-top: 5px; color: white; display: inline;" placeholder="Escriba el lugar de llegada" required>
-                                        <button style="width: 23% ;text-align: center;"><i class="fas fa-search"
-                                                id="icono-buscador"></i></button>
-                                    </div>
-
-                                    <label for="edit_description_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
-                                        Descripcion: </label>
-                                    <br>
-                                    <textarea name="edit_comentarios" rows="5" cols="60" style="margin-top: 10px;"></textarea> <br>
-                                    <hr>
-
-                                    <div style="margin: 0px; width: 49%; display:inline-block; border-block-start: 0px; margin-right: 0px;">
-                                        <label for="" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Cuando? </label>
-                                        <br><br>
-                                        <label for="edit_out" style="margin-left: 25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Salida? </label>
-                                        <br>
-                                        <input id="edit_out" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
-                                        <br>
-                                        <label for="edit_arrive" style="margin-left:25px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Llegada? </label>
-                                        <br>
-                                        <input id="edit_arrive" type="time" style="margin-left: 25px;background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-
-                                    </div>
-
-                                    <div style="margin: 0px; width: 49%; display:inline-block; margin-right: 0px;">
-                                        <label for="" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline;">
-                                            ¿Dias? </label>
-                                        <br><br><br>
-                                        <input type="checkbox" name="edit_option" id="edit_check1" style="display: inline;" /> &nbsp;
-                                        <label for="edit_check1" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Lunes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="edit_option" id="edit_check2" style="display: inline;" /> &nbsp;
-                                        <label for="edit_check2" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Martes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="edit_option" id="edit_check3" style="display: inline;" /> &nbsp;
-                                        <label for="edit_check3" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Miercoles</label><br>
-                                        <br>
-                                        <input type="checkbox" name="edit_option" id="edit_check4" style="display: inline;" /> &nbsp;
-                                        <label for="edit_check4" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Jueves</label><br>
-                                        <br>
-                                        <input type="checkbox" name="edit_option" id="edit_check5" style="display: inline;" /> &nbsp;
-                                        <label for="edit_check5" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Viernes</label><br>
-                                        <br>
-                                        <input type="checkbox" name="edit_option" id="edit_check6" style="display: inline;" /> &nbsp;
-                                        <label for="edit_check6" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            S&aacute;bado</label><br>
-                                        <br>
-                                        <input type="checkbox" name="edit_option" id="edit_check7" style="display: inline;" /> &nbsp;
-                                        <label for="edit_check7" style="margin-left: 0px; width: 50%; padding-left: 40px; padding-top: 5px; margin-bottom: 5px; padding-right: 0;display: inline; text-align: right;">
-                                            Domingo</label><br>
-                                        <br>
-                                    </div>
-                                </div>
-
-
-                                <p><input type="reset">
-                                    <input type="submit" id='validate' style="margin-left: 60%; margin-right: 0%;">
-                                </p>
+                                    <p><input type="reset">
+                                        <input type="submit" id='validate_1' style="margin-left: 60%; margin-right: 0%;">
+                                    </p>
                                 </section>
 
                             </form>
@@ -448,134 +545,96 @@
                 <label for="tabgold">Configuracion</label>
                 <div class="tab">
                     <h3>Dashboard</h3>
-                    <form id="editar" class="form-inline" role="form" action="login.html">
+                    <form id="editar_1" class="form-inline" role="form" action="login.html">
                         <label for="fullname" style="margin: 0px; padding-left: 0;">Nombre </label>
-                        <input type="short-text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="fullname" placeholder="Escriba el nombre completo" required>
+                        <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="fullname" placeholder="Escriba el nombre completo" required>
                         <label for="speed" style="margin: 0px; padding-left: 0;">Velocidad promedio</label>
-                        <input type="short-text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="speed" placeholder="Escriba la velocidad promedio" required>
+                        <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="speed" placeholder="Escriba la velocidad promedio" required>
                         <section style="width: 100%;padding-left: 0; padding-top: 25px; padding-right: 0;margin-right: 0px; margin-bottom: 5px;">
-                        </section>
-                        <div style="width: 100%;padding-left: 0; padding-right: 0; text-align: left; display: inline;margin-right: 0px;">
 
-                            <label for="description_1" style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
-                                Descripcion: </label>
-                            <br>
-                            <textarea name="comentarios" rows="5" cols="60" style="margin-top: 10px;"></textarea> <br>
-                            <hr>
+                            <div style="width: 100%;padding-left: 0; padding-right: 0; text-align: left; display: inline;margin-right: 0px;">
 
-                        </div>
+                                <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
+                                    Descripcion: </label>
+                                <br>
+                                <textarea name="setting_comentarios" rows="5" cols="60" style="margin-top: 10px;"></textarea> <br>
+                                <hr>
+
+                            </div>
 
 
-                        <p><input type="reset">
-                            <input type="submit" style="margin-left: 60%; margin-right: 0%;">
-                        </p>
+                            <p><input type="reset">
+                                <input type="submit" style="margin-left: 60%; margin-right: 0%;">
+                            </p>
                         </section>
 
                     </form>
                 </div>
 
             </div>
-
-            <!--<a href="#miModal">Abrir Modal</a>
-                <div id="miModal" class="modal">
-                    <div class="modal-contenido">
-                        <a href="#">X</a>
-                        <h2>Mi primer Modal</h2>
-                        <form action="">
-                            <label for="">Usuario: </label>
-                            <input type="text" id="find_place_out" placeholder="Escriba el nombre de usuario">
-                            <label for=""> Contraseña: </label>
-                            <input type="text" id="find_place_arrive" placeholder="Escriba la contraseña">
-                            <input type="submit" value="Enviar">
-                        </form>
-                        <p>Este es mi primera ventana modal sin utilizar JavaScript.</p>
-                    </div>
-                </div>-->
-
-
-
-
-            <!--<section class="tabs">
-
-                <input id="tab-1" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
-                <label for="tab-1">Panel</label>
-
-                <input id="tab-2" type="radio" name="radio-set" class="tab-selector-2" />
-                <label for="tab-2">Viajes</label>
-
-                <input id="tab-3" type="radio" name="radio-set" class="tab-selector-3" />
-                <label for="tab-3">Configuracion</label>
-
-                <input id="tab-4" type="radio" name="radio-set" class="tab-selector-4" />
-                <label for="tab-4">Contact</label>
-
-                <div class="clear-shadow"></div>
-
-                <div class="content-all">
-                    <div class="content-1">
-
-                        <h3 class="subtitulo_busacador" style="color:white; margin-left: -40px;">Dashboard
-                        </h3>
-
-
-                        <p>sdkfbdskjfdskfj</p>
-                    </div>
-                    <div class="content-2" contenteditable="true">
-
-
-
-                        <label for="">Usuario: </label>
-                        <input type="text" placeholder="Escriba el nombre de usuario">
-                        <label for=""> Contraseña: </label>
-                        <input type="text" placeholder="Escriba la contraseña">
-                        <input type="submit" value="">
-
-
-
-
-
-
-
-
-                    </div>
-                    <div class="content-3">
-
-                        <p>ssssssssss</p>
-                        <label for="">Usuario: </label>
-                        <input type="text" id="find_place_out" placeholder="Escriba el nombre de usuario">
-                        <label for=""> Contraseña: </label>
-                        <input type="text" id="find_place_arrive" placeholder="Escriba la contraseña">
-                        <input type="submit" value="">
-                    </div>
-                    <div class="content-4">
-                        <p>sd4sd12d21ssd12</p>
-
-                    </div>
-                </div>
-
-
-            </section>-->
-
-
-
-
         </article>
 
-
-
-
     </div>
-    <!--<script src="../js/registrar.js"></script>
-    <script src="../js/cargar_viajes.js"></script>-->
-    <!--<script src="js/jquery.min.js"></script>
-    <script src="js/jquery.scrollex.min.js"></script>
-    <script src="js/jquery.scrolly.min.js"></script>
-    <script src="js/skel.min.js"></script>
-    <script src="js/util.js"></script>
-    [if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]
-    <script src="js/main.js"></script>
-    <script src="js/invoice.js"></script>-->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="height: 100%;">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background-color: #21b2a6;height: 600px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Seleccione el lugar de salida</h5>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body" id="map" style="width: 100%; height: 100%;">
+
+
+                    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DatosIncompletos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="height: 100%;">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background-color: #21b2a6;height: 600px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Seleccione el lugar de salida</h5>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body" style="width: 100%; height: 100%;">
+
+
+                    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/agregar.js"></script>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_JY_l8S25CmDmkUf0WhwW80_CIkz-kms&callback=initMap">
+    </script>
+    <script src="../js/cargar_viaje_usuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--<scri src="js/jquery.min.js"></scri>
+    <scri src="js/jquery.scrollex.min.js"></scri>
+    <scri src="js/jquery.scrolly.min.js"></scri>
+    <scri src="js/skel.min.js"></scri>
+    <scri src="js/util.js"></scri>
+    [if lte IE 8]><scri src="assets/js/ie/respond.min.js"></scri><![endif]
+    <scri src="js/main.js"></scri>
+    <scri src="js/invoice.js"></scri>-->
 
 </body>
+
 
 </html>

@@ -11,6 +11,10 @@
 
     <link rel="stylesheet" href="../css/main.css" media="screen" />
     <!--<script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>-->
+    <script>
+        if (history.forward(1))
+            location.replace(history.forward(1));
+    </script>
 
 </head>
 
@@ -55,7 +59,7 @@
             <section id="login_guardar">
 
                 <div id="ctn-bars-search">
-                    <form name="formulario" id="form_login" action="./dashboard.html">
+                    <form name="formulario" id="form_login">
                         <label for="username">Usuario: </label>
                         <input type="text" id="username" placeholder="Escriba el nombre de usuario">
                         <label for="password"> Contraseña: </label>
@@ -79,7 +83,7 @@
 
 
     </div>
-    <!--<script src="../js/registrar.js"></script>-->
+    <script src="../js/registrar.js"></script>
 </body>
 
 </html>
