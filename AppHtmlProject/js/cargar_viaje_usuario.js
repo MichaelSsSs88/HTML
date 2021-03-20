@@ -2,6 +2,33 @@ function llenarTablaUsuario() {
     var tbody = document.querySelector('#tabla_viajes tbody');
     var getlocal = localStorage.getItem("trips");
     var parslocal;
+    try {
+        $('#tabla_viajes tbody tr').remove();
+        var fila_titulo = document.createElement('tr');
+        viaje = document.createElement('th'),
+            usuario = document.createElement('th'),
+            salida = document.createElement('th'),
+            llegada = document.createElement('th'),
+            accion = document.createElement('th');
+        viaje.appendChild(document.createTextNode("ID VIAJE"));
+        fila_titulo.appendChild(viaje);
+        usuario.appendChild(document.createTextNode("USUARIO"));
+        fila_titulo.appendChild(usuario);
+        salida.appendChild(document.createTextNode("LUGAR SALIDA"));
+        fila_titulo.appendChild(salida);
+        llegada.appendChild(document.createTextNode("LUGAR LLEGADA"));
+        fila_titulo.appendChild(llegada);
+        accion.appendChild(document.createTextNode("ACCION"));
+        fila_titulo.appendChild(accion);
+        tbody.appendChild(fila_titulo);
+
+
+
+    } catch {
+        alert("VACIO");
+    }
+
+
     //var cargarViajes = new Array();
 
     var contador = 1;
@@ -119,6 +146,7 @@ function myFunction() {
         var nombre = $(this).parent().find('td:first').text();
         var getlocal = localStorage.getItem("trips");
         var parslocal;
+
         //var cargarViajes = new Array();
         var contador = 1;
         if (getlocal != null && getlocal != "" && getlocal != false && getlocal != undefined) { //Comprobamos que el elemento existe en localStorage
@@ -136,7 +164,7 @@ function myFunction() {
             document.getElementById('edit_check5').checked = parslocal[nombre - 1].Viernes;
             document.getElementById('edit_check6').checked = parslocal[nombre - 1].Sabado;
             document.getElementById('edit_check7').checked = parslocal[nombre - 1].Domingo;
-
+            editar_ride = nombre;
         }
 
 
@@ -144,26 +172,35 @@ function myFunction() {
 
 };
 
+
+var verificadorBorrado = -1;
+
+function acceptDelete() {
+
+    $('#ConfirmacionEliminar').modal("hide");
+    var getlocal = localStorage.getItem("trips");
+    var parslocal;
+
+    if (getlocal != null && getlocal != "" && getlocal != false && getlocal != undefined && verificadorBorrado > -1) { //Comprobamos que el elemento existe en localStorage
+        parslocal = JSON.parse(getlocal);
+        parslocal.splice(verificadorBorrado - 1, 1);
+        localStorage.setItem("trips", JSON.stringify(parslocal));
+        $(this).closest('tr').remove();
+        verificadorBorrado = -1;
+        llenarTablaUsuario();
+    }
+
+}
+
 function delete_trip() {
     $('tr td:last-child').click(function() {
         alert('hola');
         //$('#edit_name_trip').text($(this).parent().find('td:first').text());
         var nombre = $(this).parent().find('td:first').text();
-        alert(nombre);
+        verificadorBorrado = nombre;
+        $('#ConfirmacionEliminar').modal("show");
+        //alert(verificadorBorrado);
 
-        var nombre = $(this).parent().find('td:first').text();
-        var getlocal = localStorage.getItem("trips");
-        var parslocal;
-        //var cargarViajes = new Array();
-        var contador = 1;
-        if (getlocal != null && getlocal != "" && getlocal != false && getlocal != undefined) { //Comprobamos que el elemento existe en localStorage
-            parslocal = JSON.parse(getlocal);
-            parslocal.splice(nombre - 1, 1);
-            localStorage.setItem("trips", JSON.stringify(parslocal));
-
-            $(this).closest('tr').remove();
-
-        }
 
         //document.getElementById('editar_nombre_viaje').value = nombre;
         //cambia_nombre(nombre);

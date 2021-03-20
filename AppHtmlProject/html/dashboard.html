@@ -109,7 +109,7 @@
 
 </head>
 
-<body class="teal- lighten-2" style="color: white;">
+<body class="teal- lighten-2" style="color: white; width:auto;">
     <div id="page-wrapper">
 
         <header id="header">
@@ -136,7 +136,7 @@
             </nav>
         </header>
 
-        <article id="main">
+        <article id="main" style="width: auto;">
             <p class="imagen_centrada" style="padding-top: 20px;">
                 <img src="../images/imgmenu.jfif" width="400" height="300" alt="">
             </p>
@@ -429,11 +429,11 @@
 
                         <input type="radio" id="tabgold_1" name="mytabs_1">
                         <label for="tabgold_1">Editar</label>
-                        <div class="tab_1">
+                        <div class="tab_1" id="data">
                             <h3>
                                 <a href="#">Dashboard</a>> <a href='' id="link_rides_2">Rides</a>>Edit
                             </h3>
-                            <form id="edit_editar" class="form-inline" name="formulario" role="form" action="login.html">
+                            <form id="edit_editar" class="form-inline" name="edit_editar" role="form" action="./dashboard.html">
                                 <label style="margin: 0px; padding-left: 0;">Viaje </label>
                                 <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="editar_nombre_viaje" name="editar_nombre_viaje" placeholder="Escriba el viaje" required>
 
@@ -598,19 +598,56 @@
 
     <div class="modal fade" id="DatosIncompletos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="height: 100%;">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content" style="background-color: #21b2a6;height: 600px;">
+            <div class="modal-content" style="background-color: #21b2a6;height: 300px;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Seleccione el lugar de salida</h5>
+                    <h3 class="modal-title" id="exampleModalLabel">Datos incompletos</h3>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
                 <div class="modal-body" style="width: 100%; height: 100%;">
-
-
+                    <h5>Favor completar todos los datos para poder contnuar</h5>
                     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DatosCompletos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="height: 100%;">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background-color: #21b2a6;height: 300px;">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Transaccion ejecutada</h3>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body" style="width: 100%; height: 100%;">
+                    <h5>La transaccion fue completada exitosamente</h5>
+                    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ConfirmacionEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="height: 100%;">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background-color: #21b2a6;height: 300px;">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Eliminar ride</h3>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body" style="width: 100%; height: 100%;">
+                    <h5>¿Desea eliminar el ride seleccionado?</h5>
+                    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="acceptDelete();">Eliminar</button>
                 </div>
             </div>
         </div>
