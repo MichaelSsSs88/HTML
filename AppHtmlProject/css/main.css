@@ -128,7 +128,7 @@ ul {
     display: flex;
     flex-wrap: wrap;
     width: 75%;
-    margin: 50px auto;
+    margin: auto;
     padding: 25px;
 }
 
@@ -1888,6 +1888,8 @@ body.is-menu-visible #menu {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 40px;
+    margin-right: 20px;
+    margin-left: 20px;
     position: relative;
 }
 
@@ -1896,19 +1898,62 @@ h3 {
 }
 
 @media screen and (max-width: 400px) {
-    #nav {
+    #image {
+        width: 200px;
+        height: 200px;
+        align-content: center;
+    }
+    #header nav>ul>li>a.menuToggle {
+        outline: 0;
+        position: inherit;
+    }
+    #header nav {
+        display: inline;
+    }
+    #header nav>ul>li>a.menuToggle:after {
+        content: '';
+        display: initial;
+        padding: 0px;
+        height: 1.5em;
+        vertical-align: top;
+    }
+    #menu_login {
         width: 100px;
     }
-    #x {
-        width: max-content;
-        display: block;
-        float: none;
-        align-content: stretch;
+    #tab {
+        width: 320px;
     }
     #resultados {
-        width: 300px;
+        width: 320px;
     }
     #tabla_viajes {
+        width: fit-content;
+    }
+    #tabla_viajes.default {
+        max-width: 320px;
+    }
+    body {
+        margin: 0;
+        float: none;
+        align-content: stretch;
+        width: auto;
+    }
+    #mytabs {
+        margin: 0;
+        padding: 0;
+        width: 320px;
+    }
+    #tab.tab {
+        width: 320px;
+    }
+    #header {
+        width: 200px;
+    }
+    #main {
+        width: 320px;
+    }
+    body {
+        width: 400px;
         align-content: stretch;
     }
 }

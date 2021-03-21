@@ -12,7 +12,7 @@
 </head>
 
 <body class="u-body">
-    <div id="page-wrapper" style="padding-bottom: 20px;">
+    <div id="page-wrapper" style="padding-bottom: 20px;" class="container">
 
 
         <header id="header">
@@ -39,7 +39,7 @@
 
         <article id="main">
             <p class="imagen_centrada" style="padding-top: 20px;">
-                <img src="images/imgmenu.jfif" width="400" height="300" alt="">
+                <img id="image" src="images/imgmenu.jfif" width="400" height="300" alt="">
             </p>
             <h1 class="titulo_inicio"> Bienvenidos a TicoRides.com</h1>
 
@@ -55,12 +55,12 @@
                     <label for="find_place_out">Lugar de salida: </label>
                     <input type="text" id="find_place_out" placeholder="Escriba el lugar de salida" oninput="validarFormulario()">
                     <label for="find_place_arrive"> Lugar de llegada: </label>
-                    <input type="text" id="find_place_arrive" placeholder="Escriba el lugar de llegada">
+                    <input type="text" id="find_place_arrive" placeholder="Escriba el lugar de llegada" oninput="validarFormulario()">
 
 
                 </div>
                 <div id="div_boton_buscar" style="text-align: right;">
-                    <button style="margin-right: 20px;" onclick="validarFormulario()">Buscar mi viaje <i class="fas fa-search" id="icono-buscador"></i></button>
+                    <button style="margin-right: 20px;" onclick="validarFormulario();">Buscar mi viaje <i class="fas fa-search" id="icono-buscador"></i></button>
                 </div>
 
             </section>

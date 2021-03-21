@@ -18,12 +18,31 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="../js/localizacion.js"></script>
     <script>
-        function separateQueryString() {
+        function verificaIngreso() {
+            if (sessionStorage.getItem('username') == null) {
+                window.location.href = "login.html";
+            } else {
+                var getlocal = localStorage.getItem(sessionStorage.getItem('username') + "_perfil");
+                var parslocal;
+                var cont;
+                var nuevovalor = new Array();
 
-            document.getElementById('user').innerHTML = sessionStorage.getItem('username');
-            //sessionStorage.clear();
+                if (getlocal != null && getlocal != "" && getlocal != false && getlocal != undefined) { //Comprobamos que el elemento existe en localStorage
+                    parslocal = JSON.parse(getlocal);
 
+
+                    document.getElementById('full_name').value = parslocal.NombreCompleto;
+                    document.getElementById('speed').value = parslocal.VelocidadPromedio;
+                    document.getElementById('description').value = parslocal.Descripcion;
+                }
+            }
         }
+
+        function separateQueryString() {
+            document.getElementById('user').innerHTML = sessionStorage.getItem('username');
+            verificaIngreso();
+        }
+        //separateQueryString();
         window.onload = separateQueryString;
     </script>
     <style type="text/css">
@@ -109,7 +128,7 @@
 
 </head>
 
-<body class="teal- lighten-2" style="color: white; width:auto;">
+<body id="x" class="teal- lighten-2" style="color: white; width:auto;">
     <div id="page-wrapper">
 
         <header id="header">
@@ -138,16 +157,16 @@
 
         <article id="main" style="width: auto;">
             <p class="imagen_centrada" style="padding-top: 20px;">
-                <img src="../images/imgmenu.jfif" width="400" height="300" alt="">
+                <img id="image" src="../images/imgmenu.jfif" width="400" height="300" alt="">
             </p>
             <h1 class="titulo_inicio"> Bienvenidos a TicoRides.com</h1>
 
 
 
-            <div class="mytabs">
+            <div class="mytabs" id="mytabs">
                 <input type="radio" id="tabfree" name="mytabs" checked="checked">
                 <label for="tabfree">Dashboard</label>
-                <div class="tab">
+                <div class="tab" id="tab">
                     <h3>Dashboard</h3>
                     <div id="resultados">
 
@@ -346,7 +365,8 @@
 
                                             <BR>
                                             <input id="add_ip_2" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%; padding-top: 5px; color: white; display: inline;" placeholder="Escriba el lugar de llegada" required>
-                                            <button type="button" style="width: 23% ;text-align: center;" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-search"></i></button>
+                                            <button type="button" style="width: 23% ;text-align: center;" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                                    class="fas fa-search"></i></button>
                                         </div>
 
                                         <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
@@ -447,7 +467,7 @@
 
                                             <br>
                                             <input id="edit_place_out" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%;padding-top: 5px;color: white; display: inline;" placeholder="Escriba el lugar de salida" required>
-                                            <button style="width: 23% ;text-align: center;"><i
+                                            <button type="button" style="width: 23% ;text-align: center;" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
                                                     class="fas fa-search"></i></button>
                                         </div>
 
@@ -457,7 +477,7 @@
 
                                             <BR>
                                             <input id="edit_place_arrive" type="text" style="background-color:rgba(144, 144, 144, 0.25);width: 75%; padding-top: 5px; color: white; display: inline;" placeholder="Escriba el lugar de llegada" required>
-                                            <button style="width: 23% ;text-align: center;"><i
+                                            <button type="button" style="width: 23% ;text-align: center;" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
                                                     class="fas fa-search"></i></button>
                                         </div>
 
@@ -545,9 +565,9 @@
                 <label for="tabgold">Configuracion</label>
                 <div class="tab">
                     <h3>Dashboard</h3>
-                    <form id="editar_1" class="form-inline" role="form" action="login.html">
+                    <form id="editar_1" class="form-inline" role="form" action="#">
                         <label for="fullname" style="margin: 0px; padding-left: 0;">Nombre </label>
-                        <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="fullname" placeholder="Escriba el nombre completo" required>
+                        <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="full_name" placeholder="Escriba el nombre completo" required>
                         <label for="speed" style="margin: 0px; padding-left: 0;">Velocidad promedio</label>
                         <input type="text" style="background-color:rgba(144, 144, 144, 0.25); width: 37%; padding-top: 5px;" id="speed" placeholder="Escriba la velocidad promedio" required>
                         <section style="width: 100%;padding-left: 0; padding-top: 25px; padding-right: 0;margin-right: 0px; margin-bottom: 5px;">
@@ -557,14 +577,14 @@
                                 <label style="margin: 0px; width: 50%; padding-left: 0; padding-top: 5px; margin-top: 25px; padding-right: 0;display: inline;">
                                     Descripcion: </label>
                                 <br>
-                                <textarea name="setting_comentarios" rows="5" cols="60" style="margin-top: 10px;"></textarea> <br>
+                                <textarea id="description" name="setting_comentarios" rows="5" cols="60" style="margin-top: 10px;"></textarea> <br>
                                 <hr>
 
                             </div>
 
 
                             <p><input type="reset">
-                                <input type="submit" style="margin-left: 60%; margin-right: 0%;">
+                                <input type="submit" value="Actualizar" style="margin-left: 60%; margin-right: 0%;" onclick="save_profile();">
                             </p>
                         </section>
 

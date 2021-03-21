@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function(e) {
+    sessionStorage.clear();
+});
+
 function llenarTabla() {
     var tbody = document.querySelector('#tabla_viajes tbody');
     var getlocal = localStorage.getItem("trips");

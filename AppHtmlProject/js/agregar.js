@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(e) {
 
+
+
     document.getElementById("formulario_agregar").addEventListener("submit", function(e) {
         //alert(document.getElementById("add_arrive").value.trim());
         //e.preventDefault();
@@ -85,7 +87,7 @@ function save_trip() {
         localStorage.setItem("trips", JSON.stringify(nuevovalor));
         llenarTablaUsuario();
 
-        alert('here');
+
     } else {
         nuevovalor[0] = {
             nombreUsuario: sessionStorage.getItem('username'),
@@ -104,7 +106,7 @@ function save_trip() {
             Domingo: document.getElementById("add_check7").checked
         };
         localStorage.setItem("trips", JSON.stringify(nuevovalor));
-        alert('nothere');
+
         llenarTablaUsuario();
     }
 
@@ -155,35 +157,36 @@ function update_trip() {
     return false;
 }
 
+function save_profile(e) {
+    var getlocal = localStorage.getItem(sessionStorage.getItem('username') + "_perfil");
+    var parslocal;
+    if (document.getElementById('full_name').value.trim() == '' || document.getElementById('speed').value.trim() == '' || document.getElementById('description').value.trim() == '') {
+        $('#DatosIncompletos').modal("show");
+        e.preventDefault();
+    }
 
-/*window.onload = function() {
+    alert(getlocal);
+    if (getlocal != null && getlocal != "" && getlocal != false && getlocal != undefined) { //Comprobamos que el elemento existe en localStorage
+        parslocal = JSON.parse(getlocal);
+        var myObject = {
+            NombreCompleto: document.getElementById('full_name').value,
+            VelocidadPromedio: document.getElementById('speed').value,
+            Descripcion: document.getElementById('description').value
+        }
+        localStorage.removeItem(sessionStorage.getItem('username') + "_perfil");
 
-    // creamos los eventos para cada elemento con la clase "boton"
-    let elementos = document.getElementsByClassName("boton");
+        localStorage.setItem(sessionStorage.getItem('username') + "_perfil", JSON.stringify(myObject));
 
-    for (let i = 0; i < elementos.length; i++) {
+    } else {
 
-        // cada vez que se haga clic sobre cualquier de los elementos,
-        // ejecutamos la función obtenerValores()
-        elementos[i].addEventListener("click", obtenerValores);
+        var myObject = {
+            NombreCompleto: document.getElementById('full_name').value,
+            VelocidadPromedio: document.getElementById('speed').value,
+            Descripcion: document.getElementById('description').value
+        }
+
+
+        localStorage.setItem(sessionStorage.getItem('username') + "_perfil", JSON.stringify(myObject));
+
     }
 }
-
-// funcion que se ejecuta cada vez que se hace clic
-function obtenerValores(e) {
-    var valores = "";
-
-    // vamos al elemento padre (<tr>) y buscamos todos los elementos <td>
-    // que contenga el elemento padre
-    var elementosTD = e.srcElement.parentElement.getElementsByTagName("td");
-
-    alert(elementosTD.length);
-    // recorremos cada uno de los elementos del array de elementos <td>
-    for (let i = 0; i < elementosTD.length; i++) {
-
-        // obtenemos cada uno de los valores y los ponemos en la variable "valores"
-        valores += elementosTD[i].innerHTML + "\n";
-    }
-
-    alert(valores);
-}*/

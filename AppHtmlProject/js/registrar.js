@@ -38,7 +38,8 @@ function validarFormulario(e) {
 
         if (username != '' && name != '' && lastname != '' && phone != '' && password != '' && passwordcopy != '') {
             var miObjeto = { Nombre: name, Apellidos: lastname, Telefono: phone, Password: password };
-
+            var Fullname = name + ' ' + lastname;
+            var perfilUsuario = { NombreCompleto: Fullname, VelocidadPromedio: 0, Descripcion: '' };
 
             try {
                 var readuser = JSON.parse(localStorage.getItem(username));
@@ -50,8 +51,9 @@ function validarFormulario(e) {
 
             if (readuser == null) {
                 if (password == passwordcopy) {
+                    var perfil = username + "_perfil";
                     localStorage.setItem(username, JSON.stringify(miObjeto));
-
+                    localStorage.setItem(perfil, JSON.stringify(perfilUsuario));
                     alert("Usuario agregado exitosamente");
                     window.location.href = "login.html";
                 } else
@@ -129,7 +131,8 @@ function manejarBotones(e) {
 
         if (username != '' && name != '' && lastname != '' && phone != '' && password != '' && passwordcopy != '') {
             var miObjeto = { Nombre: name, Apellidos: lastname, Telefono: phone, Password: password };
-
+            var Fullname = name + ' ' + lastname;
+            var perfilUsuario = { NombreCompleto: Fullname, VelocidadPromedio: 0, Descripcion: '' };
 
             try {
                 var readuser = JSON.parse(localStorage.getItem(username));
@@ -140,8 +143,11 @@ function manejarBotones(e) {
 
             // alert(readuser.length())
             if (readuser == null && password != '') {
+                var perfil = username + "perfil";
+
                 if (password == passwordcopy) {
                     localStorage.setItem(username, JSON.stringify(miObjeto));
+                    localStorage.setItem(perfil, JSON.stringify(perfilUsuario));
 
                     alert("Usuario agregado exitosamente");
 
