@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function verificarEdad() {
+            var edad = document.getElementById("edad").value;
+
+
+            var edadValidada = Number.parseInt(edad, 10);
+            if (edadValidada >= 18) {
+                alert('Ya puede conducir');
+            } else {
+                alert('No tiene la edad requeridad para conducir');
+            }
+
+        }
+    </script>
+</head>
+<form action="">
+    <label for="edad">Ingrese la edad</label>
+    <input id="edad" type="number">
+    <input type="submit" value="Buscar" onclick="verificarEdad()">
+</form>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var texto = '';
+        document.addEventListener("DOMContentLoaded", function(e) {
+
+            document.getElementById("formulario_agregar").addEventListener("submit", function(e) {
+                var edad = document.getElementById("edad").value;
+                if (edad == "cancelar") {
+                    alert(texto);
+                    texto = '';
+                    document.getElementById("edad").value = '';
+                    alert("La cadena a sido limpiada");
+                    e.preventDefault();
+                } else if (texto == '') {
+                    texto += edad;
+                    document.getElementById("edad").value = '';
+                    alert("Palabra agregada a la cadena");
+                    e.preventDefault();
+                } else {
+                    texto += "-" + edad;
+                    document.getElementById("edad").value = '';
+                    alert("Palabra agregada a la cadena");
+                    e.preventDefault();
+                }
+            });
+
+        });
+    </script>
+</head>
+<form id="formulario_agregar" action="">
+    <label for="edad">Ingrese la edad</label>
+    <input id="edad" type="text">
+    <input type="submit" value="Buscar">
+</form>
+
+<body>
+
+</body>
+
+</html>
