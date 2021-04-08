@@ -114,20 +114,20 @@ function cargarDatos(element, contador, tbody) {
     fila.appendChild(celdasalida);
     celdallegada.appendChild(document.createTextNode(element.lugarLlegada))
     fila.appendChild(celdallegada);
-    var button = document.createElement("button");
-    button.className = "boton";
-    button.onclick = myFunction;
-    //button.addEventListener("click", myFunction, false);
-    button.innerText = "Editar";
-    //button.setAttribute
-    celdavista.appendChild(button);
-    celdavista.appendChild(document.createTextNode("  "));
-    var button_1 = document.createElement("button");
-    button_1.innerText = "Eliminar";
-    button_1.onclick = delete_trip;
-    celdavista.appendChild(button_1);
-    //celdavista.appendChild(document.createTextNode("Boton"));
-    fila.appendChild(celdavista);
+    /* var button = document.createElement("button");
+     button.className = "boton";
+     button.onclick = myFunction;
+     //button.addEventListener("click", myFunction, false);
+     button.innerText = "Editar";
+     //button.setAttribute
+     celdavista.appendChild(button);
+     celdavista.appendChild(document.createTextNode("  "));
+     var button_1 = document.createElement("button");
+     button_1.innerText = "Eliminar";
+     button_1.onclick = delete_trip;
+     celdavista.appendChild(button_1);
+     //celdavista.appendChild(document.createTextNode("Boton"));
+     fila.appendChild(celdavista);*/
     tbody.appendChild(fila);
 
 }

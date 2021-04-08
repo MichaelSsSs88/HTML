@@ -77,6 +77,8 @@ h1.titulo_inicio {
     padding-right: 20px;
     padding-bottom: 40px;
     background-color: #2e3842;
+    text-align: inherit;
+    text-size-adjust: inherit;
     /*margin: 20px;*/
 }
 
@@ -1903,18 +1905,61 @@ h3 {
         height: 200px;
         align-content: center;
     }
+    h1.titulo_inicio {
+        color: snow;
+        text-align: left;
+        font: bold 20px Arial;
+    }
+    #boton_busqueda {
+        font-size: 10px;
+        box-sizing: inherit;
+    }
+    #header nav>ul>li>a.menuToggle {
+        padding: 0 1.5em;
+        /*background-color: lawngreen;*/
+        font-size: auto;
+    }
+    h1.titulo_menu {
+        color: snow;
+        text-align: left;
+        font: bold 10px Arial;
+    }
+    #header nav>ul>li>a.menuToggle span {
+        display: initial;
+    }
+}
+
+
+/*@media screen and (max-width: 400px) {
+    body {
+        margin-left: 0px;
+    }
+    #image {
+        width: 200px;
+        height: 200px;
+        align-content: center;
+    }
+    h1.titulo_inicio {
+        color: snow;
+        text-align: center;
+        font: bold 20px Arial;
+    }
+    #boton_busqueda {
+        font-size: 10px;
+        box-sizing: inherit;
+    }
     #header nav>ul>li>a.menuToggle {
         outline: 0;
         position: inherit;
     }
     #header nav {
-        display: inline;
+        display: inline-block;
     }
     #header nav>ul>li>a.menuToggle:after {
         content: '';
         display: initial;
         padding: 0px;
-        height: 1.5em;
+        height: 4em;
         vertical-align: top;
     }
     #menu_login {
@@ -1947,7 +1992,22 @@ h3 {
         width: 320px;
     }
     #header {
-        width: 200px;
+        width: 100%;
+        padding: 0px;
+        display: block;
+    }
+    #nav {
+        width: 50%;
+        margin-left: auto;
+        align-content: initial;
+        display: inline-block;
+        margin: 0px;
+        background-color: khaki;
+    }
+    #nav>ul {
+        margin-left: 0px;
+        margin-top: px;
+        align-content: center;
     }
     #main {
         width: 320px;
@@ -1956,4 +2016,4 @@ h3 {
         width: 400px;
         align-content: stretch;
     }
-}
+}*/
