@@ -141,8 +141,7 @@ function myFunction() {
 
 
     $('tr td:last-child').click(function() {
-        //alert('hola');
-        // $('#edit_name_trip').text($(this).parent().find('td:first').text());
+
         var nombre = $(this).parent().find('td:first').text();
         var getlocal = localStorage.getItem("trips");
         var parslocal;
@@ -185,6 +184,7 @@ function acceptDelete() {
         parslocal = JSON.parse(getlocal);
         parslocal.splice(verificadorBorrado - 1, 1);
         localStorage.setItem("trips", JSON.stringify(parslocal));
+
         $(this).closest('tr').remove();
         verificadorBorrado = -1;
         llenarTablaUsuario();
@@ -194,7 +194,7 @@ function acceptDelete() {
 
 function delete_trip() {
     $('tr td:last-child').click(function() {
-        alert('hola');
+        //alert('hola');
         //$('#edit_name_trip').text($(this).parent().find('td:first').text());
         var nombre = $(this).parent().find('td:first').text();
         verificadorBorrado = nombre;

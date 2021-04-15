@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>My css WebSite</title>
+    <script>
+        /*document.addEventListener("DOMContentLoaded", function(e) {
+                                                                                                                                                                                                                                                                            document.addEventListener("submit", function(e) {
+                                                                                                                                                                                                                                                                                validarCompleto(e);
+                                                                                                                                                                                                                                                                            });
+
+                                                                                                                                                                                                                                                                        })
+
+                                                                                                                                                                                                                                                                        function validarCompleto(e) {
+                                                                                                                                                                                                                                                                            //var password = document.getElementById("password").value.trim();
+
+
+                                                                                                                                                                                                                                                                            if (validarNumero() == true && validarTexto() == true && validarTamano() == true) {
+                                                                                                                                                                                                                                                                                alert('Clave aceptada');
+                                                                                                                                                                                                                                                                                e.preventDefault();
+                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                alert('Clave denegada');
+                                                                                                                                                                                                                                                                                e.preventDefault();
+                                                                                                                                                                                                                                                                            }
+
+
+                                                                                                                                                                                                                                                                        }
+
+
+                                                                                                                                                                                                                                                                        function validarNumero() {
+
+                                                                                                                                                                                                                                                                            var d = document.getElementById("password").value.trim();
+                                                                                                                                                                                                                                                                            for (i = 0; i < d.length; i++) {
+                                                                                                                                                                                                                                                                                if (isNaN(d.charAt(i))) {
+                                                                                                                                                                                                                                                                                    //alert(false);
+                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                    return true;
+                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                            return (false);
+                                                                                                                                                                                                                                                                        }
+
+
+
+                                                                                                                                                                                                                                                                        function validarTexto() {
+                                                                                                                                                                                                                                                                            var cont = 0;
+                                                                                                                                                                                                                                                                            var letras_mayusculas = "ABCDEFGHYJKLMNÑOPQRSTUVWXYZ";
+                                                                                                                                                                                                                                                                            var d = document.getElementById("password").value.trim();
+                                                                                                                                                                                                                                                                            for (i = 0; i < d.length; i++) {
+                                                                                                                                                                                                                                                                                if (letras_mayusculas.indexOf(d.charAt(i), 0) != -1) {
+
+                                                                                                                                                                                                                                                                                    cont++;
+                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                            if (cont == 1) {
+                                                                                                                                                                                                                                                                                return true;
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                            return false;
+                                                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                                                        function validarTamano() {
+                                                                                                                                                                                                                                                                            var cont = 0;
+
+                                                                                                                                                                                                                                                                            var d = document.getElementById("password").value.trim();
+                                                                                                                                                                                                                                                                            for (i = 0; i < d.length; i++) {
+                                                                                                                                                                                                                                                                                cont++;
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                            if (cont >= 8 && cont <= 12) {
+                                                                                                                                                                                                                                                                                return true;
+                                                                                                                                                                                                                                                                            } else {
+
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                            return false;
+                                                                                                                                                                                                                                                                        }*/
+
+
+
+        function dropdownMenu() {
+            var x = document.getElementById("dropdownClick");
+
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <nav>
+        <ul class="topnav" id="dropdownClick">
+            <li>
+                <a href="#home"> Home</a>
+            </li>
+            <li>
+                <a href="#news">News</a>
+            </li>
+            <li>
+                <a href="#contact">Contact</a>
+            </li>
+            <li>
+                <a href="#about">About</a>
+            </li>
+            <li class="topnav-right">
+                <a href="#signup">Sign UP</a>
+            </li>
+            <li class="topnav-right">
+                <a href="#signin">Sing IN</a>
+            </li>
+            <li class="dropdownIcon"><a onclick="dropdownMenu();">&#9779;</a></li>
+        </ul>
+    </nav>
+    <div class="container" id="section-1-gradient">
+        <div class="row">
+            <div class="col-6">
+                <div class="leftSide-col">
+                    <h1 class="large">Crazy Radnes</h1>
+                    <h1 class="large">Made for Developers</h1>
+                </div>
+
+                <form action="" class="leftSide-col">
+                    <div>
+                        <h2>Username</h2>
+                        <input type="text" class="inputbox" name="username" id="username" placeholder="Username">
+                        <h2>Password</h2>
+                        <input type="password" class="inputbox" name="password" id="password" placeholder="Password">
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-6">
+                <div class="rightSide-col">
+                    <iframe width="100%" height="400px" src="https://www.youtube.com/embed/d4Zb4f4rnL4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <header>
+        <h1 class="section2Header"> The standars of awesomeness</h1>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="box">
+                    <div class="icon">
+                        <img width="100%" src="logoWeb.jpg" alt="">
+                    </div>
+                    <label for="">Chat with me</label>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium rerum obcaecati vitae laborum voluptas possimus distinctio quis libero quidem incidunt velit maiores excepturi animi dicta, quisquam quod. Perspiciatis, culpa eius!</p>
+
+                </div>
+
+            </div>
+            <div class="col-4">
+                <div class="box">
+                    <div class="icon">
+                        <img width="100%" src="logoWeb.jpg" alt="">
+                    </div>
+                    <label for="">Learn to code</label>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium rerum obcaecati vitae laborum voluptas possimus distinctio quis libero quidem incidunt velit maiores excepturi animi dicta, quisquam quod. Perspiciatis, culpa eius!</p>
+
+                </div>
+
+            </div>
+            <div class="col-4">
+                <div class="box">
+                    <div class="icon">
+                        <img width="100%" src="logoWeb.jpg" alt="">
+                    </div>
+                    <label for="">Build an Empire</label>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium rerum obcaecati vitae laborum voluptas possimus distinctio quis libero quidem incidunt velit maiores excepturi animi dicta, quisquam quod. Perspiciatis, culpa eius!</p>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button class="learnmore">Learn More</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <article>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quaerat, incidunt quisquam maxime assumenda aspernatur? Iste, quaerat id possimus, quod hic eius, aperiam tempore praesentium molestias itaque expedita vero architecto?Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit. Iste corporis totam laborum sit minus iusto optio reiciendis ullam officiis officia, cupiditate dicta, explicabo assumenda voluptas, accusantium impedit incidunt magni beatae.</p>
+                </article>
+            </div>
+            <div class="col-5">
+                <div class="slopeIcon">
+                    <img width="100%" src="background.jpg" alt="">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="footsy">
+        <div class="row">
+            <div class="col-3 mobileStack">
+                <h1>Company</h1>
+                <ul>
+                    <li>About</li>
+                    <li>Blogs</li>
+                    <li>Carrers</li>
+                </ul>
+
+            </div>
+            <div class="col-3 mobileStack">
+                <h1>Company</h1>
+                <ul>
+                    <li>About</li>
+                    <li>Blogs</li>
+                    <li>Carrers</li>
+                </ul>
+
+            </div>
+            <div class="col-3 mobileStack">
+                <h1>Company</h1>
+                <ul>
+                    <li>About</li>
+                    <li>Blogs</li>
+                    <li>Carrers</li>
+                </ul>
+
+            </div>
+            <div class="col-3 mobileStack">
+                <h1>Company</h1>
+                <ul>
+                    <li>About</li>
+                    <li>Blogs</li>
+                    <li>Carrers</li>
+                </ul>
+
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
