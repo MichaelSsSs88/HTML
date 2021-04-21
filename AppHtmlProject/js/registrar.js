@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function(e) {
-    alert('saass');
     document.formulario.addEventListener("submit", validarFormulario);
 
     window.formulario.username.addEventListener("input", function() {
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 function validarFormulario(e) {
     e = e || window.event;
 
-    alert(this.id);
+    //alert(this.id);
     if (this.id == 'ctn-bars-search') {
         var username = document.getElementById('username').value;
         var name = document.getElementById('name').value;
@@ -116,7 +115,7 @@ function validarFormulario(e) {
 function manejarBotones(e) {
     e.preventDefault();
 
-    alert(this.id);
+    //alert(this.id);
     if (this.id == "boton_guardado") {
         var username = document.getElementById('username').value;
         var name = document.getElementById('name').value;

@@ -1943,6 +1943,41 @@
             padding: 0 1.5em;
             text-transform: uppercase;
         }
+        .mytabs {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .mytabs.mytabs {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .tab {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        .tab.tab {
+            /*display: flex;
+            flex-wrap: wrap;*/
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        /* #resultados {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+        }*/
     }
     /*@media screen and (max-width: 400px) {
     body {

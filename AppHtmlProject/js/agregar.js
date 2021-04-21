@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
         //e.preventDefault();
 
         if (document.getElementById('editar_nombre_viaje').value.trim() != '' && document.getElementById('edit_place_out').value.trim() != '' && document.getElementById('edit_place_arrive').value.trim() != '' && document.getElementById('edit_description').value.trim() != '' && document.getElementById('edit_hour_out').value != '' && document.getElementById('edit_hour_arrive').value.trim() != '') {
-            alert("Datos completos");
+            //alert("Datos completos");
             if (update_trip()) {
                 $('#DatosCompletos').modal("show");
                 document.getElementById("edit_editar").reset();
@@ -165,7 +165,7 @@ function save_profile(e) {
         e.preventDefault();
     }
 
-    alert(getlocal);
+    //alert(getlocal);
     if (getlocal != null && getlocal != "" && getlocal != false && getlocal != undefined) { //Comprobamos que el elemento existe en localStorage
         parslocal = JSON.parse(getlocal);
         var myObject = {

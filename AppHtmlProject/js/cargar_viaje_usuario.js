@@ -10,6 +10,7 @@ function llenarTablaUsuario() {
             salida = document.createElement('th'),
             llegada = document.createElement('th'),
             accion = document.createElement('th');
+        accion2 = document.createElement('th');
         viaje.appendChild(document.createTextNode("ID VIAJE"));
         fila_titulo.appendChild(viaje);
         usuario.appendChild(document.createTextNode("USUARIO"));
@@ -18,14 +19,16 @@ function llenarTablaUsuario() {
         fila_titulo.appendChild(salida);
         llegada.appendChild(document.createTextNode("LUGAR LLEGADA"));
         fila_titulo.appendChild(llegada);
-        accion.appendChild(document.createTextNode("ACCION"));
+        accion.appendChild(document.createTextNode("EDITAR"));
         fila_titulo.appendChild(accion);
+        accion2.appendChild(document.createTextNode("ELIMINAR"));
+        fila_titulo.appendChild(accion2);
         tbody.appendChild(fila_titulo);
 
 
 
     } catch {
-        alert("VACIO");
+        //alert("VACIO");
     }
 
 
@@ -43,6 +46,7 @@ function llenarTablaUsuario() {
                     celdasalida = document.createElement('td'),
                     celdallegada = document.createElement('td');
                 celdavista = document.createElement('td');
+                celdavista2 = document.createElement('td');
                 //celdausuario.className = "data";
                 celdaviaje.appendChild(document.createTextNode(contador));
                 fila.appendChild(celdaviaje);
@@ -63,9 +67,10 @@ function llenarTablaUsuario() {
                 var button_1 = document.createElement("button");
                 button_1.innerText = "Eliminar";
                 button_1.onclick = delete_trip;
-                celdavista.appendChild(button_1);
+                celdavista2.appendChild(button_1);
                 //celdavista.appendChild(document.createTextNode("Boton"));
                 fila.appendChild(celdavista);
+                fila.appendChild(celdavista2);
                 tbody.appendChild(fila);
 
             }
@@ -73,74 +78,21 @@ function llenarTablaUsuario() {
 
         });
 
-        /* $.each(parslocal, function(index, value) {
 
-             //cont = index;
-
-             cargarViajes[index] = value; //llenamos nuestro array vacío con los valores que ya existen en nuestro elemento
-
-
-
-         });*/
     }
 
-    /* var readuser = JSON.parse(localStorage.getItem('users')),
-         readout = JSON.parse(localStorage.getItem('out')),
-         readarrive = JSON.parse(localStorage.getItem('arrive'));
 
-     var userscount = readuser.length;
-     var usuario = []
-     salida = [],
-         llegada = [];
-
-     for (var i = 0; i < userscount; i++) {
-         var fila = document.createElement('tr');
-
-         var celdausuario = document.createElement('td'),
-             celdasalida = document.createElement('td'),
-             celdallegada = document.createElement('td');
-         celdavista = document.createElement('td');
-         celdausuario.className = "data";
-         celdausuario.appendChild(document.createTextNode(readuser[i]));
-         fila.appendChild(celdausuario);
-         celdasalida.appendChild(document.createTextNode(readout[i]));
-         fila.appendChild(celdasalida);
-         celdallegada.appendChild(document.createTextNode(readarrive[i]))
-         fila.appendChild(celdallegada);
-         var button = document.createElement("button");
-         button.className = "boton";
-         button.onclick = myFunction;
-         //button.addEventListener("click", myFunction, false);
-         button.innerText = "Editar";
-         button.setAttribute
-         celdavista.appendChild(button);
-         celdavista.appendChild(document.createTextNode("  "))
-         var button_1 = document.createElement("button");
-         button_1.innerText = "Eliminar";
-         button_1.onclick = delete_trip;
-         celdavista.appendChild(button_1);
-         //celdavista.appendChild(document.createTextNode("Boton"));
-         fila.appendChild(celdavista);
-         tbody.appendChild(fila);
-     }*/
 };
 
-/*function save_trip(){
-    var readuser = JSON.parse(localStorage.getItem('users')),
-        readout = JSON.parse(localStorage.getItem('out')),
-        readarrive = JSON.parse(localStorage.getItem('arrive'));
-        readuser.push()
-        readout
-}*/
+
+var editando = 0;
 
 function myFunction() {
-
+    editando = 1;
     document.getElementById('tabsilver').checked = true;
     document.getElementById('tabgold_1').checked = true;
 
-
-
-    $('tr td:last-child').click(function() {
+    $('tr td').click(function() {
 
         var nombre = $(this).parent().find('td:first').text();
         var getlocal = localStorage.getItem("trips");
@@ -164,6 +116,7 @@ function myFunction() {
             document.getElementById('edit_check6').checked = parslocal[nombre - 1].Sabado;
             document.getElementById('edit_check7').checked = parslocal[nombre - 1].Domingo;
             editar_ride = nombre;
+
         }
 
 
@@ -176,7 +129,7 @@ var verificadorBorrado = -1;
 
 function acceptDelete() {
 
-    $('#ConfirmacionEliminar').modal("hide");
+
     var getlocal = localStorage.getItem("trips");
     var parslocal;
 
@@ -189,23 +142,21 @@ function acceptDelete() {
         verificadorBorrado = -1;
         llenarTablaUsuario();
     }
-
+    $('#ConfirmacionEliminar').modal("hide");
 }
 
 function delete_trip() {
-    $('tr td:last-child').click(function() {
-        //alert('hola');
-        //$('#edit_name_trip').text($(this).parent().find('td:first').text());
-        var nombre = $(this).parent().find('td:first').text();
-        verificadorBorrado = nombre;
-        $('#ConfirmacionEliminar').modal("show");
-        //alert(verificadorBorrado);
+    if (editando != 1) {
+        $('tr td:last-child').click(function() {
+
+            var nombre = $(this).parent().find('td:first').text();
+            verificadorBorrado = nombre;
+            $('#ConfirmacionEliminar').modal("show");
 
 
-        //document.getElementById('editar_nombre_viaje').value = nombre;
-        //cambia_nombre(nombre);
-
-    });
+        });
+    }
+    editando = -1;
 
 }
 
